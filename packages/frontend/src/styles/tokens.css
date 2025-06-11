@@ -1,0 +1,26 @@
+:root {
+    --color-page: white;
+    --color-headings: black;
+    --color-bgdark: #ffafcc;
+    --color-bglight: #ffc8dd;
+    --color-secs: #decac0;
+    --color-sectext: #2526e0;
+    --color-hovertext: white;
+    --color-hoverbox: #a2d2ff;
+    --color-shadow: #cdb4db;
+    --color-headings: black;
+    --font-main: "Delius", sans-serif;
+  }  
+
+  [data-theme="dark"] {
+    --color-page: #121212;         /* True dark background for the body */
+    --color-bgdark: #F0D6FF;         /* Deep slate for headers / primary containers */
+    --color-bglight: #FFD7FA;        /* Slightly lighter for card backgrounds */
+    --color-headings: #f2f2f2;       /* High-contrast text */
+    --color-secs: #3c3c5c;           /* Muted section background */
+    --color-sectext: #ffafcc;        /* Accent text color (same as your light bgdark for continuity) */
+    --color-hovertext: #ffffff;
+    --color-hoverbox: #5e60ce;       /* A strong hover blue/violet */
+    --color-shadow: #000000;         /* Deep shadow for contrast */
+  }
+  

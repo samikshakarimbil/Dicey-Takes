@@ -1,0 +1,120 @@
+.profile-container {
+  display: flex;
+  padding: 1em;
+  gap: 1em;
+}
+
+.profilecard {
+  min-width: 20%;
+  height: 50%;
+  border-radius: 20px;
+  background-color: var(--color-bglight);
+  box-shadow: 0 4px 8px 0 var(--color-shadow), 0 6px 20px 0 var(--color-shadow);
+  padding: 1em;
+  text-align: center;
+}
+
+.pfp {
+  max-width: 7em;
+  min-height: 7em;
+  border-radius: 50%;
+  border: 2px solid;
+  object-fit: cover;
+  margin-bottom: 1em;
+}
+
+.display-name {
+  font-size: 1.4rem;
+  font-weight: bolder;
+  margin: 0;
+}
+
+.username {
+  font-size: 1em;
+  margin: 0;
+}
+
+.profilemain {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding-left: 1em;
+}
+
+.section {
+  border-radius: 20px;
+  padding: 1rem;
+  background-color: var(--color-bglight);
+  box-shadow: 0 4px 8px 0 var(--color-shadow), 0 6px 20px 0 var(--color-shadow);
+}
+
+.section-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: bolder;
+}
+
+.liked {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+}
+
+.likedgame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.liked img {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+}
+.review {
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 1em;
+  margin-top: 1em;
+  box-shadow: 0 4px 8px 0 var(--color-shadow), 0 6px 20px 0 var(--color-shadow);
+  display: grid;
+  grid-template-columns: 4em 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 0.5em;
+  align-items: center;
+  font-weight: 600;
+}
+.review img {
+  grid-row-end: span 3;
+  border-radius: 50%;
+  width: 4em;
+  height: 4em;
+}
+
+.username {
+  font-weight: 800;
+}
+
+.review p {
+  margin: 0;
+}
+
+.star-rating {
+  display: flex;
+  gap: 0.2em;
+  color: gold;
+}
+
+.star-rating i {
+  font-size: 1.5em;
+}

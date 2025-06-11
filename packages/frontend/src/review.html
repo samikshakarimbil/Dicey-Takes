@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="styles\tokens.css" rel="stylesheet" />
+    <link href="styles\main.css" rel="stylesheet" />
+    <link href="styles\review.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Delius&family=Henny+Penny&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <title>Codenames</title>
+  </head>
+  <body>
+    <header>
+      <h1>Dicey Takes</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+    </header>
+
+    <div class="review-container">
+      <h2>Write a Review</h2>
+
+      <div class="game-entry">
+          <h3 class="title">Game</h3>
+            <input
+                placeholder="Enter name of game">
+            </input>
+      </div>
+
+      <div class="rating-box">
+          <h3 for="rating" class="title">Your Rating</h3>
+          <div class="star-rating">
+            <input type="radio" name="rating" id="star5" value="5" />
+            <label for="star5"><i class="material-icons">star</i></label>
+            
+            <input type="radio" name="rating" id="star4" value="4" />
+            <label for="star4"><i class="material-icons">star</i></label>
+            
+            <input type="radio" name="rating" id="star3" value="3" />
+            <label for="star3"><i class="material-icons">star</i></label>
+            
+            <input type="radio" name="rating" id="star2" value="2" />
+            <label for="star2"><i class="material-icons">star</i></label>
+            
+            <input type="radio" name="rating" id="star1" value="1" />
+            <label for="star1"><i class="material-icons">star</i></label>
+          </div>
+        </div>
+
+        <div class="review-area">
+            <h3 for="review-text" class="title">Your Review</h3>
+            <textarea
+              id="review-text"
+              placeholder="Enter review...">
+            </textarea>
+        </div>
+
+        <div class="buttons">
+          <a href="index.html">
+            <button class="btn-submit">Submit</button>
+          </a>
+          <a href="index.html">
+            <button class="btn-cancel">Cancel</button>
+          </a>
+        </div>
+
+    </div>
+  </body>
+</html>
