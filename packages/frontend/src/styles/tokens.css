@@ -9,6 +9,7 @@
     --color-hoverbox: #a2d2ff;
     --color-shadow: #cdb4db;
     --color-headings: black;
+    --color-review: white;
     --font-main: "Delius", sans-serif;
   }  
 
@@ -21,6 +22,7 @@
     --color-sectext: #ffafcc;        /* Accent text color (same as your light bgdark for continuity) */
     --color-hovertext: #ffffff;
     --color-hoverbox: #5e60ce;       /* A strong hover blue/violet */
+    --color-review: white;
     --color-shadow: #000000;         /* Deep shadow for contrast */
   }
   

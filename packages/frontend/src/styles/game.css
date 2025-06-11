@@ -108,6 +108,7 @@
 }
 
 .review {
+  background-color: var(--color-review);
   border-radius: 20px;
   border: 1px solid black;
   padding: 1em;

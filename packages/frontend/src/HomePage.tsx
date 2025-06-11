@@ -1,32 +1,37 @@
-import Header from './Header';
-import GameCard from './GameCard';
-import './styles/tokens.css';
-import './styles/main.css';
-import './styles/home.css';
+import Header from "./Header";
+import GameCard from "./GameCard";
+import "./styles/tokens.css";
+import "./styles/main.css";
+import "./styles/home.css";
+import type { IApiGameData } from "../../backend/src/shared/ApiGameData.ts";
+import { Link } from "react-router-dom";
 
-export default function HomePage() {
-  const games = [
-    { name: 'Catan', image: '/images/catan.jpg', alt: 'Catan box art', link: '/game/catan' },
-    { name: 'Clue', image: '/images/Clue.jpg', alt: 'Clue box art', link: '/game/clue' },
-    { name: 'Codenames', image: '/images/codenames.jpg', alt: 'Codenames box art', link: '/game/codenames' },
-    { name: 'Monopoly', image: '/images/monopoly.jpg', alt: 'Monopoly box art', link: '/game/monopoly' },
-  ];
+interface IGameProps {
+  games: IApiGameData[];
+  isLoading: boolean;
+  hasError: boolean;
+}
 
-  return (
-    <div>
-      <Header />
-      <h2 className="titletext">Trending Games</h2>
-      <div className="games">
-        {games.map((game) => (
-          <GameCard
-            key={game.name}
-            name={game.name}
-            imageSrc={game.image}
-            altText={game.alt}
-            link={game.link}
-          />
-        ))}
-      </div>
+export default function HomePage(props: IGameProps) {
+  if (props.isLoading) return <><p>Loading...</p></>;
+  if (props.hasError) return <><p>Something went wrong.</p></>;
+  const gameElements = props.games.map((game) => (
+    <div key={game._id} className="games">
+      <Link to={"/games/" + game.title}>
+        <GameCard
+          key={game._id}
+          name={game.title}
+          imageSrc={game.image}
+          altText={game.title}
+        />
+      </Link>
     </div>
+  ));
+  return(
+    <main>
+      <Header/>
+      <h2 className="titletext">Trending games</h2>
+      <div className="games">{gameElements}</div>
+    </main>
   );
 }
