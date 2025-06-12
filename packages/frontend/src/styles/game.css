@@ -108,23 +108,20 @@
 }
 
 .review {
+  max-width: 30%;
   background-color: var(--color-review);
   border-radius: 20px;
   border: 1px solid black;
-  padding: 1em;
+  padding-top: 1.2em;
+  padding-left: 2em;
+  padding-bottom: 1.2em;
+  padding-right: 3em;;
   margin-top: 1em;
   box-shadow: 0 4px 8px 0 var(--color-shadow), 0 6px 20px 0 var(--color-shadow);
   display: grid;
-  grid-template-columns: 4em 1fr;
-  grid-template-rows: auto auto auto;
-  gap:0.5em;
+  grid-template-rows: auto auto;
+  gap:0.2em;
   align-items: center;
-}
-.review img {
-  grid-row-end: span 3;
-  border-radius: 50%;
-  width: 4em;
-  height: 4em;
 }
 
 .username {

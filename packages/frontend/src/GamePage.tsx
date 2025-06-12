@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import ReviewCard from "./ReviewCard";
 import "./styles/tokens.css";
@@ -29,16 +29,37 @@ interface IReviewProps {
 
 export default function GamePage(props: Readonly<IGameProps>) {
   const { gameName } = useParams<{ gameName: string }>();
-  const game = props.games.find(
+  const location = useLocation();
+  const [reviews, setReviews] = useState<IReviewProps[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [currentGame, setCurrentGame] = useState<IApiGameData | null>(null);
+  const [gameLoading, setGameLoading] = useState(false);
+  
+  const gameProps = props.games.find(
     (g) => g.title.toLowerCase() === gameName?.toLowerCase()
   );
 
-  if (props.isLoading) return <p>Loading...</p>;
-  if (props.hasError) return <p>Failed to load game.</p>;
-  if (!game) return <h2>Game not found</h2>;
-
-  const [reviews, setReviews] = useState<IReviewProps[]>([]);
-  const [loadingReviews, setLoadingReviews] = useState(true);
+  // Function to refetch current game data
+  const refetchGameData = async () => {
+    if (!gameName) return;
+    
+    setGameLoading(true);
+    try {
+      const res = await fetch(`/api/games`);
+      if (!res.ok) throw new Error("Failed to fetch games");
+      const allGames: IApiGameData[] = await res.json();
+      const updatedGame = allGames.find(
+        (g) => g.title.toLowerCase() === gameName.toLowerCase()
+      );
+      if (updatedGame) {
+        setCurrentGame(updatedGame);
+      }
+    } catch (err) {
+      console.error("Error refetching game data", err);
+    } finally {
+      setGameLoading(false);
+    }
+  };
 
   useEffect(() => {
     async function fetchReviews() {
@@ -57,7 +78,21 @@ export default function GamePage(props: Readonly<IGameProps>) {
     }
 
     if (gameName) fetchReviews();
-  }, [gameName]);
+  }, [gameName, gameProps]);
+
+  useEffect(() => {
+    if (location.state?.reviewAdded) {
+      refetchGameData();
+      // Clear the state to prevent unnecessary refetches
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
+
+  const game = currentGame || gameProps;
+
+  if (props.isLoading) return <p>Loading...</p>;
+  if (props.hasError) return <p>Failed to load game.</p>;
+  if (!game) return <h2>Game not found</h2>;
 
   return (
     <div>
@@ -82,7 +117,13 @@ export default function GamePage(props: Readonly<IGameProps>) {
             <div className="desctext">
               <div className="desc-row">
                 <StarIcon />
-                <p>{game.averageRating ?? "No rating yet"}</p>
+                <p>
+                {gameLoading ? (
+                    "Updating..."
+                  ) : (
+                    game.averageRating ?? "No rating yet"
+                  )}
+                  </p>
               </div>
               <div className="desc-row">
                 <GroupIcon />

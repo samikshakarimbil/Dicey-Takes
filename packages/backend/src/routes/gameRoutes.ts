@@ -36,7 +36,6 @@ export function registerGameRoutes(
 
   app.get("/api/:gameName/reviews", async (req, res) => {
     const { gameName } = req.params;
-  
     try {
       const reviews = await gameProvider.getReviewsForGame(gameName);
       res.status(200).json(reviews);

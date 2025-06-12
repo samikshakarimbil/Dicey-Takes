@@ -57,7 +57,7 @@ export default function ReviewPage() {
             name="rating"
             value={rating}
             onChange={(_, value) => setRating(value)}
-            precision={0.5}
+            precision={1}
             size="large"
           />
         </div>
