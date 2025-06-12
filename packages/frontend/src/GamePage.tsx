@@ -5,6 +5,7 @@ import ReviewCard from "./ReviewCard";
 import "./styles/tokens.css";
 import "./styles/main.css";
 import "./styles/game.css";
+import "./styles/review.css";
 import type { IApiGameData } from "../../backend/src/shared/ApiGameData.ts";
 
 // MUI icons
@@ -18,6 +19,7 @@ interface IGameProps {
   games: IApiGameData[];
   isLoading: boolean;
   hasError: boolean;
+  token: string;
 }
 
 interface IReviewProps {
@@ -26,6 +28,7 @@ interface IReviewProps {
   text: string;
   date: string;
 }
+
 
 export default function GamePage(props: Readonly<IGameProps>) {
   const { gameName } = useParams<{ gameName: string }>();
@@ -45,7 +48,12 @@ export default function GamePage(props: Readonly<IGameProps>) {
     
     setGameLoading(true);
     try {
-      const res = await fetch(`/api/games`);
+      const res = await fetch(`/api/games`, {
+        headers: {
+          Authorization: `Bearer ${props.token}`,
+        },
+      });
+      
       if (!res.ok) throw new Error("Failed to fetch games");
       const allGames: IApiGameData[] = await res.json();
       const updatedGame = allGames.find(
@@ -64,9 +72,12 @@ export default function GamePage(props: Readonly<IGameProps>) {
   useEffect(() => {
     async function fetchReviews() {
       try {
-        const res = await fetch(
-          `/api/${encodeURIComponent(gameName!)}/reviews`
-        );
+        const res = await fetch(`/api/${encodeURIComponent(gameName!)}/reviews`, {
+          headers: {
+            Authorization: `Bearer ${props.token}`,
+          },
+        });
+        
         if (!res.ok) throw new Error("Failed to fetch reviews");
         const data = await res.json();
         setReviews(data);
@@ -83,7 +94,6 @@ export default function GamePage(props: Readonly<IGameProps>) {
   useEffect(() => {
     if (location.state?.reviewAdded) {
       refetchGameData();
-      // Clear the state to prevent unnecessary refetches
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
@@ -148,7 +158,7 @@ export default function GamePage(props: Readonly<IGameProps>) {
       </div>
 
       <div className="reviews">
-        <h3>Reviews</h3>
+        <h3 className="titleText">Reviews</h3>
         {loadingReviews ? (
           <p>Loading reviews...</p>
         ) : reviews.length === 0 ? (

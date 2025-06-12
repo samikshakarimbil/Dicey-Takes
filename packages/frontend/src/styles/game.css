@@ -13,6 +13,7 @@
 
 .topsection a{
   text-decoration: none;
+  color: var(--color-arrow)
 }
 .topsection a:hover{
   text-decoration: none;
@@ -123,7 +124,9 @@
   gap:0.2em;
   align-items: center;
 }
-
+.titleText{
+  color: var(--color-headings);
+}
 .username {
   font-weight: 800;
 }

@@ -2,9 +2,7 @@ import StarIcon from "@mui/icons-material/Star";
 import Header from "./Header";
 import "./styles/tokens.css";
 import "./styles/main.css";
-import "./styles/profile.css";
 import "./styles/review.css";
-
 
 export default function Profile() {
   const reviews = [
@@ -17,7 +15,7 @@ export default function Profile() {
     <>
       <Header />
       <div className="reviews">
-        <h3 className="reviewTitle">Your Reviews</h3>
+        <h3 className="titleText">Your Reviews</h3>
         {reviews.map((review, i) => (
           <div key={i} className="review">
             <p className="username">{review.game}</p>

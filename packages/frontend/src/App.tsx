@@ -80,7 +80,11 @@ function App() {
         path={`${ValidRoutes.GAME}/:gameName`}
         element={
           <ProtectedRoute authToken={token}>
-            <GamePage games={game} isLoading={isLoading} hasError={hasError} />
+            <GamePage games={game} 
+              isLoading={isLoading} 
+              hasError={hasError} 
+              token={token}
+              />
           </ProtectedRoute>
         }
       />
