@@ -2,7 +2,7 @@ export interface IApiGameData {
     _id: string;
     title: string,
     image: string,
-    averageRating: Number,
+    averageRating: string,
     players: string,
     playTime: string,
     age: string,

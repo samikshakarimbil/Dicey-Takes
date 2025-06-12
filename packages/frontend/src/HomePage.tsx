@@ -17,7 +17,7 @@ export default function HomePage(props: IGameProps) {
   if (props.hasError) return <><p>Something went wrong.</p></>;
   const gameElements = props.games.map((game) => (
     <div key={game._id} className="games">
-      <Link to={"/games/" + game.title}>
+      <Link to={"/game/" + game.title}>
         <GameCard
           key={game._id}
           name={game.title}

@@ -43,7 +43,15 @@ export default function App() {
               isLoading={isLoading}
               hasError={hasError}
               />} />
-        <Route path="/game/:gameName" element={<GamePage />} />
+        <Route 
+          path={`${ValidRoutes.GAME}/:gameName`} 
+          element={
+            <GamePage 
+              games={game}
+              isLoading={isLoading}
+              hasError={hasError}
+            />} 
+          />
         <Route path="/profile" element={<Profile />} />
         <Route path={ValidRoutes.REVIEWS} element={<ReviewForm />} />
       </Routes>

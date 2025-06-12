@@ -19,7 +19,7 @@
 }
 
 .game {
-  padding: 0.5em;
+  padding-top: 0.9em;
   max-width: 80%;
   height: 17em;
   display: flex;
