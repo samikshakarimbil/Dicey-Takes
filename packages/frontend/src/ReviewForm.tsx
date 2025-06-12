@@ -3,7 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./styles/review.css";
 import { Rating } from "@mui/material";
 
-export default function ReviewPage() {
+interface ReviewFormProps {
+  token: string;
+}
+
+export default function ReviewPage(props: ReviewFormProps) {
   const navigate = useNavigate();
   const { gameName } = useParams<{ gameName: string }>();
 
@@ -30,7 +34,7 @@ export default function ReviewPage() {
         `/api/${encodeURIComponent(gameName)}/review`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { Authorization: `Bearer ${props.token}` },
           body: JSON.stringify(newReview),
         }
       );

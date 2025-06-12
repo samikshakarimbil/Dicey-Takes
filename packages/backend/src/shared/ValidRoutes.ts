@@ -3,5 +3,6 @@ export const ValidRoutes = {
     LOGIN: "/login",
     GAME: "/game",
     REVIEW: "/review",  
-    REGISTER: "/register"
+    REGISTER: "/register",
+    PROFILE:"profile"
 } as const;
