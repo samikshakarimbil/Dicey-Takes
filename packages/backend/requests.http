@@ -1,2 +1,17 @@
 ### Get games
 GET http://localhost:3000/api/games
+
+### post a review
+POST http://localhost:3000/api/catan/review
+Content-Type: application/json
+
+{ "name": "name" }
+
+### get reviews for catan
+GET http://localhost:3000/api/catan/reviews
+
+### get reviews for clue
+GET http://localhost:3000/api/clue/reviews
+
+### get reviews for game without review
+GET http://localhost:3000/api/uno/reviews

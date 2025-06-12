@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import ReviewCard from "./ReviewCard";
@@ -19,20 +20,45 @@ interface IGameProps {
   hasError: boolean;
 }
 
+interface IReviewProps {
+  user: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
 export default function GamePage(props: Readonly<IGameProps>) {
   const { gameName } = useParams<{ gameName: string }>();
   const game = props.games.find(
     (g) => g.title.toLowerCase() === gameName?.toLowerCase()
   );
 
-
   if (props.isLoading) return <p>Loading...</p>;
   if (props.hasError) return <p>Failed to load game.</p>;
   if (!game) return <h2>Game not found</h2>;
 
-  console.log(game.image);
+  const [reviews, setReviews] = useState<IReviewProps[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
 
-  
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const res = await fetch(
+          `/api/${encodeURIComponent(gameName!)}/reviews`
+        );
+        if (!res.ok) throw new Error("Failed to fetch reviews");
+        const data = await res.json();
+        setReviews(data);
+      } catch (err) {
+        console.error("Error loading reviews", err);
+      } finally {
+        setLoadingReviews(false);
+      }
+    }
+
+    if (gameName) fetchReviews();
+  }, [gameName]);
+
   return (
     <div>
       <Header />
@@ -41,7 +67,7 @@ export default function GamePage(props: Readonly<IGameProps>) {
         <Link to="/">
           <ArrowBackIcon />
         </Link>
-        <Link to="/review">
+        <Link to={`/review/${encodeURIComponent(game.title)}`}>
           <button type="button">+ Review this game</button>
         </Link>
       </div>
@@ -82,16 +108,18 @@ export default function GamePage(props: Readonly<IGameProps>) {
 
       <div className="reviews">
         <h3>Reviews</h3>
-        {game.reviews.length === 0 ? (
+        {loadingReviews ? (
+          <p>Loading reviews...</p>
+        ) : reviews.length === 0 ? (
           <p>No reviews yet</p>
         ) : (
-          game.reviews.map((r: any, i: number) => (
+          reviews.map((r, i) => (
             <ReviewCard
               key={i}
-              imageSrc={r.pfp}
               username={r.user}
               rating={r.rating}
               text={r.text}
+              imageSrc="/images/default.jpg"
             />
           ))
         )}

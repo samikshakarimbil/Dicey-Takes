@@ -5,10 +5,10 @@ import { registerGameRoutes } from "./routes/gameRoutes";
 import { GameProvider } from "./gameProvider";
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
+
 const mongoClient = connectMongo();
-const PORT = process.env.PORT || 3000;
 const app = express();
-app.use(express.json());
+const PORT = process.env.PORT || 3000;
 const STATIC_DIR = process.env.STATIC_DIR || "public";
 const JWT_SECRET = process.env.JWT_SECRET;
 

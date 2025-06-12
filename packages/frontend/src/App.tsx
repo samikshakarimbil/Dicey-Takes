@@ -53,7 +53,9 @@ export default function App() {
             />} 
           />
         <Route path="/profile" element={<Profile />} />
-        <Route path={ValidRoutes.REVIEWS} element={<ReviewForm />} />
+        <Route path={`${ValidRoutes.REVIEW}/:gameName`}  
+          element={<ReviewForm />} 
+          />
       </Routes>
     </Router>
   );
