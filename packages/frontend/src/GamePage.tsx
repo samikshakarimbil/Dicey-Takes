@@ -170,7 +170,6 @@ export default function GamePage(props: Readonly<IGameProps>) {
               username={r.user}
               rating={r.rating}
               text={r.text}
-              imageSrc="/images/default.jpg"
             />
           ))
         )}

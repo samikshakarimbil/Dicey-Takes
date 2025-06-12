@@ -16,6 +16,9 @@ GET http://localhost:3000/api/clue/reviews
 ### get reviews for game without review
 GET http://localhost:3000/api/uno/reviews
 
+### get reviews for game without review
+GET http://localhost:3000/api/reviews/sam
+
 ### New user registration
 POST http://localhost:3000/auth/register
 Content-Type: application/json

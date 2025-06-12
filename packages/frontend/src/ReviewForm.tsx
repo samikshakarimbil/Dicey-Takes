@@ -22,22 +22,23 @@ export default function ReviewPage(props: ReviewFormProps) {
       return;
     }
 
-    const newReview = {
-      game: gameName,
-      user: "mockUser3000",
-      rating,
-      text: reviewText,
-    };
-
     try {
+      console.log(gameName);
       const response = await fetch(
         `/api/${encodeURIComponent(gameName)}/review`,
         {
           method: "POST",
-          headers: { Authorization: `Bearer ${props.token}` },
-          body: JSON.stringify(newReview),
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${props.token}`,
+          },
+          body: JSON.stringify({
+            rating,
+            text: reviewText,
+          }),
         }
       );
+      
 
       if (!response.ok) {
         throw new Error("Failed to submit review");

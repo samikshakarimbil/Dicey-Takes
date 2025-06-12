@@ -1,32 +1,75 @@
-import StarIcon from "@mui/icons-material/Star";
+import { useEffect, useState } from "react";
 import Header from "./Header";
+import StarIcon from "@mui/icons-material/Star";
 import "./styles/tokens.css";
 import "./styles/main.css";
 import "./styles/review.css";
 
-export default function Profile() {
-  const reviews = [
-    { game: "Catan", rating: 5, text: "Best game ever made" },
-    { game: "Snakes & Ladders", rating: 1, text: "Worst game ever made" },
-    { game: "Uno", rating: 3, text: "Okayest game ever made" },
-  ];
+interface Review {
+  user: string;
+  game: string;
+  rating: number;
+  text: string;
+  date: string;
+}
+
+interface ProfileProps {
+  token: string;
+}
+
+export default function Profile({ token }: Readonly<ProfileProps>) {
+   const [reviews, setReviews] = useState<Review[]>([]);
+   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchUserReviews() {
+      try {
+        const res = await fetch(`/api/reviews/me}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch reviews");
+        const data = await res.json();
+        setReviews(data);
+      } catch (err) {
+        console.error("Error loading reviews:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUserReviews();
+  }, []);
+
+  
 
   return (
     <>
       <Header />
       <div className="reviews">
         <h3 className="titleText">Your Reviews</h3>
-        {reviews.map((review, i) => (
-          <div key={i} className="review">
-            <p className="username">{review.game}</p>
-            <div className="star-rating">
-              {Array.from({ length: review.rating }).map((_, idx) => (
-                <StarIcon key={idx} />
-              ))}
+        {loading ? (
+          <p>Loading reviews...</p>
+        ) : reviews.length === 0 ? (
+          <p>You haven’t written any reviews yet.</p>
+        ) : (
+          reviews.map((review, i) => (
+            <div key={i} className="review">
+              <p className="username">
+                <strong>{review.game}</strong>
+              </p>
+              <div className="star-rating">
+                {Array.from({ length: review.rating }).map((_, idx) => (
+                  <StarIcon key={idx} />
+                ))}
+              </div>
+              <p className="reviewText">{review.text}</p>
+              <p className="reviewDate">{new Date(review.date).toLocaleDateString()}</p>
             </div>
-            <p>{review.text}</p>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </>
   );

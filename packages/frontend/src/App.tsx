@@ -93,7 +93,7 @@ function App() {
         path={ValidRoutes.PROFILE}
         element={
           <ProtectedRoute authToken={token}>
-            <Profile />
+            <Profile token={token}/>
           </ProtectedRoute>
         }
       />

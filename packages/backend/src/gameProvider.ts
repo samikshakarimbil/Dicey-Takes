@@ -78,5 +78,9 @@ export class GameProvider {
     return reviews;
   }
   
+  async getReviewsByUser(username: string): Promise<IReviewDocument[]> {
+    return await this.reviewCollection.find({ user: username }).toArray();
+  }
+  
 
 }

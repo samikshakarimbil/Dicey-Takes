@@ -1,5 +1,6 @@
 import express from "express";
 import { GameProvider } from "../gameProvider";
+// import { authenticateToken } from "../shared/Middleware";
 
 export function registerGameRoutes(
   app: express.Application,
@@ -13,17 +14,19 @@ export function registerGameRoutes(
 
   app.post("/api/:gameName/review", async (req, res) => {
     const { gameName } = req.params;
-    const { rating, text, user } = req.body;
+    const { rating, text } = req.body;
+    const user = req.user?.username;
   
-    if (!rating || !text || !user) {
+    if (!rating || !text || typeof user !== "string" || !gameName) {
       res.status(400).send({ error: "Invalid", message: "Missing required fields" });
+      return;
     }
   
     const review = {
       game: gameName,
       rating,
       text,
-      user,
+      user: user
     };
   
     const success = await gameProvider.addReview(review);
@@ -34,7 +37,7 @@ export function registerGameRoutes(
     }
   });
 
-  app.get("/api/:gameName/reviews", async (req, res) => {
+  app.get("/api/:gameName/reviews", express.json(), async (req, res) => {
     const { gameName } = req.params;
     try {
       const reviews = await gameProvider.getReviewsForGame(gameName);
@@ -44,6 +47,9 @@ export function registerGameRoutes(
       res.status(500).send({ error: "Could not fetch reviews" });
     }
   });
-  
+
+  app.get("/api/reviews/me", express.json(), async (req, res) => {
+      console.log("sufferng");
+  });
   
 }
