@@ -77,7 +77,6 @@ export class GameProvider {
     if (!res) {
       return false;
     }
-    console.log(res.matchedCount);
 
     return true;
   }

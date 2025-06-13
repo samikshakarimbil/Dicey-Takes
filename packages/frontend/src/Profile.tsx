@@ -42,7 +42,6 @@ export default function Profile({ token }: ProfileProps) {
       }
 
       const data = await response.json();
-      console.log(data);
       setReviews(data);
     } catch (err: any) {
       setError(err.message);
@@ -63,7 +62,7 @@ export default function Profile({ token }: ProfileProps) {
         ) : error ? (
           <p>Error: {error}</p>
         ) : reviews.length === 0 ? (
-          <p>No reviews written yet.</p>
+          <p>You have not written any reviews yet.</p>
         ) : (
           reviews.map((review, i) => (
             <div key={i} className="review">

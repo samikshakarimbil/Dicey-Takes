@@ -20,7 +20,7 @@
 
 .game {
   padding-top: 0.9em;
-  max-width: 80%;
+  width: 80%;
   height: 17em;
   display: flex;
   flex-direction: column;

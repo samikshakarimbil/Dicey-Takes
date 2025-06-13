@@ -23,7 +23,6 @@ export default function ReviewPage(props: ReviewFormProps) {
     }
 
     try {
-      console.log(gameName);
       const response = await fetch(
         `/api/${encodeURIComponent(gameName)}/review`,
         {
