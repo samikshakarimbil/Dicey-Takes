@@ -1,6 +1,5 @@
 import express from "express";
 import { GameProvider } from "../gameProvider";
-// import { authenticateToken } from "../shared/Middleware";
 
 export function registerGameRoutes(
   app: express.Application,
@@ -48,8 +47,14 @@ export function registerGameRoutes(
     }
   });
 
-  app.get("/api/reviews/me", express.json(), async (req, res) => {
-      console.log("sufferng");
+  app.get("/api/profile", express.json(), async (req, res) => {
+      try {
+        const reviews = await gameProvider.getUserReviews(req.user!);
+        res.status(200).json(reviews);
+      } catch (err) {
+        console.error("Failed to get user reviews:", err);
+        res.status(500).send({ error: "Could not fetch user reviews" });
+      }
   });
   
 }
